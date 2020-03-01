@@ -1,62 +1,51 @@
-import React, { useState } from "react";
-import { StyleSheet, View, ScrollView } from "react-native";
-import { Navbar } from "./src/Navbar";
-import { AddTodo } from "./src/AddTodo";
-import { Todo } from "./src/Todo";
+import React, {useState} from 'react';
+import {StyleSheet, View, ScrollView, FlatList} from 'react-native';
+import {Navbar} from './src/components/Navbar';
+import {MainScreen} from './src/screens/MainScreen';
+import {TodoScreen} from './src/screens/TodoScreen';
 
 export default function App() {
-  const [todos, setTodos] = useState([
-    {id: 1, title: 'test'},
-    {id: 2, title: 'test'},
-    {id: 3, title: 'test'},
-    {id: 4, title: 'test'},
-    {id: 5, title: 'test'},
-    {id: 6, title: 'test'},
-    {id: 7, title: 'test'},
-    {id: 8, title: 'test'}
-  ]);
+    const [todoId, setTodoId] = useState(null)
+    const [todos, setTodos] = useState([]);
 
-  const addTodo = title => {
-    // const newTodo = {
-    //   id: Date.now().toString(),
-    //   title: title
-    // }
 
-    // setTodos(todos.concat([newTodo]))
-    // setTodos((prevTodos) => {
-    //   return [
-    //     ...prevTodos,
-    //     newTodo
-    //   ]
-    // })
-    setTodos(prev => [
-      ...prev,
-      {
-        id: Date.now().toString(),
-        title
-      }
-    ]);
-  };
+    const addTodo = title => {
+        setTodos(prev => [
+            ...prev,
+            {
+                id: Date.now().toString(),
+                title
+            }
+        ]);
+    };
 
-  return (
-    <View>
-      <Navbar title="Todo App!" />
-      <ScrollView style={styles.container}>
-        <AddTodo onSubmit={addTodo} />
+    const removeTodo = id => {
+        setTodos(prev => prev.filter(todo => todo.id !== id))
+    };
 
+    let content = <MainScreen
+        todos={todos}
+        addTodo={addTodo}
+        removeTodo={removeTodo}/>;
+
+    if (todoId) {
+        content = <TodoScreen/>
+    }
+
+
+    return (
         <View>
-          {todos.map(todo => (
-            <Todo todo={todo} key={todo.id} />
-          ))}
+            <Navbar title='Todo App!'/>
+            <View style={styles.container}>
+                {content}
+            </View>
         </View>
-      </ScrollView>
-    </View>
-  );
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 30,
-    paddingVertical: 20
-  }
+    container: {
+        paddingHorizontal: 30,
+        paddingVertical: 20
+    }
 });
