@@ -1,14 +1,17 @@
-import React, { useState } from "react";
-import { Alert, Button, StyleSheet, TextInput, View } from "react-native";
-import { THEME } from "../theme";
+import React, {useState} from "react";
+import {Alert, StyleSheet, TextInput, View, Keyboard} from "react-native";
 
-export const AddTodo = ({ onSubmit }) => {
+import {THEME} from "../theme";
+import {AppButton} from "./ui/AppButton";
+
+export const AddTodo = ({onSubmit}) => {
   const [value, setValue] = useState("");
 
   const pressHandler = () => {
     if (value.trim()) {
       onSubmit(value);
       setValue("");
+      Keyboard.dismiss();
     } else {
       Alert.alert("Название дела не может быть пустым");
     }
@@ -24,20 +27,22 @@ export const AddTodo = ({ onSubmit }) => {
         autoCorrect={false}
         autoCapitalize="none"
       />
-      <Button title="Добавить" onPress={pressHandler} />
+      <AppButton  onPress={pressHandler}>
+        Добавить
+      </AppButton>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  block: { 
+  block: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 15
   },
   input: {
-    width: "70%",
+    width: "60%",
     padding: 10,
     borderStyle: "solid",
     borderBottomWidth: 2,
