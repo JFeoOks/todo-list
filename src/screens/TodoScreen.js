@@ -20,7 +20,7 @@ export const TodoScreen = ({goBack}) => {
         setModal(false)
     };
 
-    const todo = todos.find(t => t.id = todoId);
+    const todo = todos.find(t => t.id === todoId);
 
     return (
         <View>
