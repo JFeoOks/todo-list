@@ -23,8 +23,9 @@ const handlers = {
     todos: state.todos.map(todo => {
       if (todo.id === id) {
         todo.title = title;
-        return todo;
       }
+
+      return todo;
     })
   }),
 
