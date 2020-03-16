@@ -25,7 +25,7 @@ export const MainScreen = () => {
     loadTodos();
   }, []);
 
-  useEffect(() => {
+  useEffect(() =>{
     const update = () => {
       const newWidth =
         Dimensions.get("window").width - THEME.PADDING_HORIZONTAL * 2;
@@ -39,7 +39,7 @@ export const MainScreen = () => {
   });
 
   if (loading) {
-    return <AppLoader />;
+    return <AppLoader/>;
   }
 
   if (error) {
